@@ -3,7 +3,7 @@ import snakePlant from "../assets/plants/snake-plant.jpg";
 import peaceLily from "../assets/plants/peace-lily.jpg";
 
 const plants = [
-  // Indoor Plants
+  // CATEGORY 1: INDOOR PLANTS
   {
     id: 1,
     name: "Snake Plant",
@@ -47,7 +47,7 @@ const plants = [
     image: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?w=500",
   },
 
-  // Succulents
+  // CATEGORY 2: SUCCULENTS
   {
     id: 7,
     name: "Aloe Vera",
@@ -91,7 +91,7 @@ const plants = [
     image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500",
   },
 
-  // Flowering Plants
+  // CATEGORY 3: FLOWERING PLANTS
   {
     id: 13,
     name: "Peace Lily",
@@ -132,6 +132,12 @@ const plants = [
     name: "Geranium",
     category: "Flowering Plants",
     price: 329,
+    image: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=500",
+  },
+];
+
+export default plants;
+
     image: "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=500",
   },
 ];
