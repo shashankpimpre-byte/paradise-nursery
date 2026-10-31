@@ -11,12 +11,45 @@ import "../App.css";
 
 function CartItem() {
   const dispatch = useDispatch();
+
   const cartItems = useSelector((state) => state.cart.items);
 
-  const totalAmount = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  // Calculate the total amount of all cart items
+  const calculateTotalAmount = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
+
+  // Calculate the subtotal for an individual plant
+  const calculateTotalCost = (item) => {
+    return item.price * item.quantity;
+  };
+
+  // Increase the quantity of a plant
+  const handleIncrement = (item) => {
+    dispatch(increaseQuantity(item.id));
+  };
+
+  // Decrease quantity, or remove the plant when quantity is 1
+  const handleDecrement = (item) => {
+    if (item.quantity > 1) {
+      dispatch(decreaseQuantity(item.id));
+    } else {
+      dispatch(removeFromCart(item.id));
+    }
+  };
+
+  // Remove a plant from the cart
+  const handleRemove = (item) => {
+    dispatch(removeFromCart(item.id));
+  };
+
+  // Checkout message
+  const handleCheckout = () => {
+    alert("Coming Soon!");
+  };
 
   return (
     <div className="cart-page">
@@ -29,6 +62,7 @@ function CartItem() {
           <div className="empty-cart">
             <h2>Your cart is empty!</h2>
             <p>Discover some beautiful plants for your home.</p>
+
             <Link to="/plants" className="continue-button">
               Continue Shopping
             </Link>
@@ -38,19 +72,29 @@ function CartItem() {
             <div className="cart-items">
               {cartItems.map((item) => (
                 <div className="cart-card" key={item.id}>
-                  <img src={item.image} alt={item.name} />
+                  <img
+                    className="cart-item-image"
+                    src={item.image}
+                    alt={item.name}
+                  />
 
                   <div className="cart-details">
-                    <h3>{item.name}</h3>
-                    <p>Price: ₹{item.price}</p>
+                    <h3 className="cart-item-name">
+                      {item.name}
+                    </h3>
+
+                    <p className="cart-item-cost">
+                      Unit Price: ₹{item.price}
+                    </p>
+
                     <p>
-                      Subtotal: ₹{item.price * item.quantity}
+                      Subtotal: ₹{calculateTotalCost(item)}
                     </p>
 
                     <div className="quantity-controls">
                       <button
-                        onClick={() => dispatch(decreaseQuantity(item.id))}
-                        disabled={item.quantity <= 1}
+                        onClick={() => handleDecrement(item)}
+                        aria-label={`Decrease ${item.name} quantity`}
                       >
                         -
                       </button>
@@ -58,7 +102,8 @@ function CartItem() {
                       <span>{item.quantity}</span>
 
                       <button
-                        onClick={() => dispatch(increaseQuantity(item.id))}
+                        onClick={() => handleIncrement(item)}
+                        aria-label={`Increase ${item.name} quantity`}
                       >
                         +
                       </button>
@@ -66,9 +111,9 @@ function CartItem() {
 
                     <button
                       className="remove-button"
-                      onClick={() => dispatch(removeFromCart(item.id))}
+                      onClick={() => handleRemove(item)}
                     >
-                      Remove
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -76,9 +121,11 @@ function CartItem() {
             </div>
 
             <div className="cart-summary">
-              <h2>Total: ₹{totalAmount}</h2>
+              <h2>
+                Total Cart Amount: ₹{calculateTotalAmount()}
+              </h2>
 
-              <button onClick={() => alert("Coming Soon!")}>
+              <button onClick={handleCheckout}>
                 Checkout
               </button>
 
@@ -94,3 +141,4 @@ function CartItem() {
 }
 
 export default CartItem;
+
