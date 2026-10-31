@@ -1,3 +1,26 @@
+# Paradise Nursery
+
+## Project Description
+
+Paradise Nursery is a React-based online plant shopping application where users can explore different categories of plants, view product details, add plants to their shopping cart, and manage cart quantities.
+
+## Technologies Used
+
+- React.js
+- JavaScript
+- Redux Toolkit
+- React Router
+- CSS
+
+## Features
+
+- Landing page with a Get Started button
+- Plant listings across multiple categories
+- Add-to-cart functionality
+- Dynamic cart item count
+- Increase or decrease product quantities
+- Remove items from the cart
+- Automatic total price calculation
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
